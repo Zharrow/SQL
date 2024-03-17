@@ -34,7 +34,13 @@ class OrdersModel {
         $stmt->bindValue(':client_id', $data['client_id']);
         $stmt->bindValue(':restaurant_id', $data['restaurant_id']);
         
-        $stmt->execute();
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     public function updateOrder($data) {
@@ -57,14 +63,26 @@ class OrdersModel {
         $stmt->bindValue(':restaurant_id', $data['restaurant_id']);
         $stmt->bindValue(':id', $data['id']);
 
-        $stmt->execute();
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     public function deleteOrder($id) {
         $query = "DELETE FROM `Orders` WHERE id = ?";
         $stmt= $this->db->prepare($query);
 
-        $stmt->execute([$id]);
+        try {
+            $stmt->execute([$id]);
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 }
 

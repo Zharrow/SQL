@@ -29,7 +29,13 @@ class RestaurantsModel {
 
         $stmt->bindValue(':name', $data['name']);
         
-        $stmt->execute();
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     public function updateRestaurant($data) {
@@ -42,14 +48,26 @@ class RestaurantsModel {
         $stmt->bindValue(':name', $data['name']);
         $stmt->bindValue(':id', $data['id']);
 
-        $stmt->execute();
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     public function deleteRestaurant($id) {
         $query = "DELETE FROM `Restaurants` WHERE id = ?";
         $stmt= $this->db->prepare($query);
 
-        $stmt->execute([$id]);
+        try {
+            $stmt->execute([$id]);
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 }
 

@@ -22,10 +22,15 @@ class FeedbacksController {
                     "order_id" => $_POST['order_id']
                 ];
 
-                $this->feedbacksModel->createFeedback($data);
-                header("Location: /");
+                $state = $this->feedbacksModel->createFeedback($data);
+                
+                if ($state) {
+                    header("Location: /");
+                } else {
+                    $errors[] = 'Unable to create in database. This can be because of you send wrong type of value or the order_id you provide doesn\t exist.';
+                }
             } else {
-                echo 'Give all the required informations';
+                echo 'Missing required informations';
             }
         }
 
@@ -48,10 +53,15 @@ class FeedbacksController {
                     "id" => $_POST['id']
                 ];
 
-                $this->feedbacksModel->updateFeedback($data);
-                header("Location: /");
+                $state = $this->feedbacksModel->updateFeedback($data);
+                
+                if ($state) {
+                    header("Location: /");
+                } else {
+                    $errors[] = 'Unable to create in database. This can be because of you send wrong type of value or the order_id you provide doesn\t exist.';
+                }
             } else {
-                echo 'Give all the required informations';
+                echo 'Missing required informations';
             }
         }
 
@@ -63,8 +73,13 @@ class FeedbacksController {
             $id = $_GET['id'];
         }
 
-        $this->feedbacksModel->deleteFeedback($id);
-        header("Location: /");
+        $state = $this->feedbacksModel->deleteFeedback($id);
+        
+        if ($state) {
+            header("Location: /");
+        } else {
+            echo 'Error when deleting feedback.';
+        }
     }
 }
 

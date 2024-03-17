@@ -32,8 +32,14 @@ class AddressesModel {
         $stmt->bindValue(':postal', $data['postal']);
         $stmt->bindValue(':city', $data['city']);
         $stmt->bindValue(':restaurant_id', $data['restaurant_id']);
-        
-        $stmt->execute();
+
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     public function updateAddress($data) {
@@ -54,14 +60,26 @@ class AddressesModel {
         $stmt->bindValue(':restaurant_id', $data['restaurant_id']);
         $stmt->bindValue(':id', $data['id']);
 
-        $stmt->execute();
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     public function deleteAddress($id) {
         $query = "DELETE FROM `Addresses` WHERE id = ?";
         $stmt= $this->db->prepare($query);
 
-        $stmt->execute([$id]);
+        try {
+            $stmt->execute([$id]);
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 }
 

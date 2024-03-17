@@ -31,7 +31,13 @@ class FoodModel {
         $stmt->bindValue(':price', $data['price']);
         $stmt->bindValue(':restaurant_id', $data['restaurant_id']);
         
-        $stmt->execute();
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     public function updateFood($data) {
@@ -48,14 +54,26 @@ class FoodModel {
         $stmt->bindValue(':restaurant_id', $data['restaurant_id']);
         $stmt->bindValue(':id', $data['id']);
 
-        $stmt->execute();
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     public function deleteFood($id) {
         $query = "DELETE FROM `Food` WHERE id = ?";
         $stmt= $this->db->prepare($query);
 
-        $stmt->execute([$id]);
+        try {
+            $stmt->execute([$id]);
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 }
 

@@ -24,10 +24,15 @@ class AddressesController {
                     "restaurant_id" => (!empty($_POST['restaurant_id'])) ? $_POST['restaurant_id'] : null
                 ];
 
-                $this->addressesModel->createAddress($data);
-                header("Location: /");
+                $state = $this->addressesModel->createAddress($data);
+
+                if ($state) {
+                    header("Location: /");
+                } else {
+                    $errors[] = 'Unable to create in database. This can be because of client_id or restaurant_id don\'t exist in database.';
+                }
             } else {
-                echo 'Give all the required informations';
+                $errors[] = 'Missing required informations.';
             }
         }
 
@@ -52,10 +57,15 @@ class AddressesController {
                     "id" => $_POST['id']
                 ];
 
-                $this->addressesModel->updateAddress($data);
-                header("Location: /");
+                $state = $this->addressesModel->updateAddress($data);
+
+                if ($state) {
+                    header("Location: /");
+                } else {
+                    $errors[] = 'Unable to update in database. This can be because of client_id or restaurant_id don\'t exist in database.';
+                }
             } else {
-                echo 'Give all the required informations';
+                $errors[] = 'Missing required informations.';
             }
         }
 
@@ -67,8 +77,14 @@ class AddressesController {
             $id = $_GET['id'];
         }
 
-        $this->addressesModel->deleteAdress($id);
-        header("Location: /");
+        $state = $this->addressesModel->deleteAddress($id);
+
+        if ($state) {
+            header("Location: /");
+        } else {
+            echo 'Error when deleting address.';
+        }
+        
     }
 }
 

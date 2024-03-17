@@ -22,10 +22,15 @@ class ClientsController {
                     "phone" => $_POST['phone']
                 ];
 
-                $this->clientsModel->createClient($data);
-                header("Location: /");
+                $state = $this->clientsModel->createClient($data);
+
+                if ($state) {
+                    header("Location: /");
+                } else {
+                    $errors[] = 'Unable to create in database. This can be because of you send wrong type of value.';
+                }
             } else {
-                echo 'Give all the required informations';
+                echo 'Missing required informations';
             }
         }
 
@@ -48,10 +53,15 @@ class ClientsController {
                     "id" => $_POST['id']
                 ];
 
-                $this->clientsModel->updateClient($data);
-                header("Location: /");
+                $state = $this->clientsModel->updateClient($data);
+                
+                if ($state) {
+                    header("Location: /");
+                } else {
+                    $errors[] = 'Unable to update in database. This can be because of you send wrong type of value.';
+                }
             } else {
-                echo 'Give all the required informations';
+                echo 'Missing required informations';
             }
         }
 
@@ -63,8 +73,13 @@ class ClientsController {
             $id = $_GET['id'];
         }
 
-        $this->clientsModel->deleteClient($id);
-        header("Location: /");
+        $state = $this->clientsModel->deleteClient($id);
+        
+        if ($state) {
+            header("Location: /");
+        } else {
+            echo 'Error when deleting client.';
+        }
     }
 }
 

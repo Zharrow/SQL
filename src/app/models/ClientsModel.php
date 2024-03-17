@@ -31,7 +31,13 @@ class ClientsModel {
         $stmt->bindValue(':firstname', $data['firstname']);
         $stmt->bindValue(':phone', $data['phone']);
         
-        $stmt->execute();
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     public function updateClient($data) {
@@ -48,14 +54,26 @@ class ClientsModel {
         $stmt->bindValue(':phone', $data['phone']);
         $stmt->bindValue(':id', $data['id']);
 
-        $stmt->execute();
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     public function deleteClient($id) {
         $query = "DELETE FROM `Clients` WHERE id = ?";
         $stmt= $this->db->prepare($query);
 
-        $stmt->execute([$id]);
+        try {
+            $stmt->execute([$id]);
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 }
 

@@ -18,7 +18,7 @@
         </div>
         <div>
             <label for="postal">Postal: </label>
-            <input type="text" name="postal" placeholder="..." required>
+            <input type="number" name="postal" placeholder="..." required>
         </div>
         <div>
             <label for="city">City: </label>
@@ -31,5 +31,10 @@
         <input type="submit" value="Add">
         <a href="/">Cancel</a>
     </form>
+    <div>
+        <?php foreach ($errors as $error) : ?>
+            <p><?php echo $error ?></p>
+        <?php endforeach; ?>
+    </div>
 </body>
 </html>

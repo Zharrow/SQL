@@ -15,5 +15,10 @@
         <input type="submit" value="Add">
         <a href="/">Cancel</a>
     </form>
+    <div>
+        <?php foreach ($errors as $error) : ?>
+            <p><?php echo $error ?></p>
+        <?php endforeach; ?>
+    </div>
 </body>
 </html>

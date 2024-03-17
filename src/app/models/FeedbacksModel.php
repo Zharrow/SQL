@@ -31,7 +31,13 @@ class FeedbacksModel {
         $stmt->bindValue(':comment', $data['comment']);
         $stmt->bindValue(':order_id', $data['order_id']);
         
-        $stmt->execute();
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     public function updateFeedback($data) {
@@ -48,14 +54,25 @@ class FeedbacksModel {
         $stmt->bindValue(':order_id', $data['order_id']);
         $stmt->bindValue(':id', $data['id']);
 
-        $stmt->execute();
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
     }
 
     public function deleteFeedback($id) {
         $query = "DELETE FROM `Feedbacks` WHERE id = ?";
         $stmt= $this->db->prepare($query);
 
-        $stmt->execute([$id]);
+        try {
+            $stmt->execute([$id]);
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 }
 

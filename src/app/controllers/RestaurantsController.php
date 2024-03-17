@@ -20,10 +20,15 @@ class RestaurantsController {
                     "name" => $_POST['name']
                 ];
 
-                $this->restaurantsModel->createRestaurant($data);
-                header("Location: /");
+                $state = $this->restaurantsModel->createRestaurant($data);
+
+                if ($state) {
+                    header("Location: /");
+                } else {
+                    $errors[] = 'Unable to create in database. This can be because of you send wrong type of value.';
+                }
             } else {
-                echo 'Give all the required informations';
+                echo 'Missing required informations';
             }
         }
 
@@ -44,10 +49,15 @@ class RestaurantsController {
                     "id" => $_POST['id']
                 ];
 
-                $this->restaurantsModel->updateRestaurant($data);
-                header("Location: /");
+                $state = $this->restaurantsModel->updateRestaurant($data);
+
+                if ($state) {
+                    header("Location: /");
+                } else {
+                    $errors[] = 'Unable to create in database. This can be because of you send wrong type of value.';
+                }
             } else {
-                echo 'Give all the required informations';
+                echo 'Missing required informations';
             }
         }
 
@@ -59,8 +69,13 @@ class RestaurantsController {
             $id = $_GET['id'];
         }
 
-        $this->restaurantsModel->deleteRestaurant($id);
-        header("Location: /");
+        $state = $this->restaurantsModel->deleteRestaurant($id);
+        
+        if ($state) {
+            header("Location: /");
+        } else {
+            echo 'Error when deleting order.';
+        }
     }
 }
 
