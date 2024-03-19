@@ -2,8 +2,8 @@
 CREATE DATABASE IF NOT EXISTS Sql_resto_db;
 USE Sql_resto_db;
 
--- CREATE USER IF NOT EXISTS 'cv-php'@'localhost' IDENTIFIED BY 'password';
--- GRANT ALL PRIVILEGES ON Sql_resto_db.* TO 'cv-php'@'localhost';
+CREATE USER IF NOT EXISTS 'cv-php'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON Sql_resto_db.* TO 'cv-php'@'localhost';
 
 -- CREATE TABLES
 -- Create clients
