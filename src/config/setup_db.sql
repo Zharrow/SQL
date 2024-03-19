@@ -9,9 +9,9 @@ USE Sql_resto_db;
 -- Create clients
 CREATE TABLE IF NOT EXISTS Clients(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    lastname VARCHAR(255) NOT NULL,
-    firstname VARCHAR(255) NOT NULL,
-    phone VARCHAR(255) NOT NULL
+    lastname VARCHAR(100) NOT NULL,
+    firstname VARCHAR(100) NOT NULL,
+    phone VARCHAR(10) NOT NULL
 );
 
 -- Create restaurants
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS Restaurants(
 -- Create food
 CREATE TABLE IF NOT EXISTS Food(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(100) NOT NULL,
     price DOUBLE(8, 2) NOT NULL,
     restaurant_id INT NOT NULL,
     FOREIGN KEY (restaurant_id) REFERENCES Restaurants(id) on delete cascade
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS Addresses(
     FOREIGN KEY (client_id) REFERENCES Clients(id) on delete cascade,
     street VARCHAR(255) NOT NULL,
     postal INT NOT NULL,
-    city VARCHAR(255) NOT NULL,
+    city VARCHAR(100) NOT NULL,
     restaurant_id INT,
     FOREIGN KEY (restaurant_id) REFERENCES Restaurants(id) on delete cascade
 );
